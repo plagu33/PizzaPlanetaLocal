@@ -1,0 +1,411 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws.pizzaplaneta.cl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="Pizzeria" targetNamespace="http://ws.pizzaplaneta.cl/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.pizzaplaneta.cl/" elementFormDefault="unqualified" targetNamespace="http://ws.pizzaplaneta.cl/" version="1.0">
+
+  <xs:element name="buscarCLientePorID" type="tns:buscarCLientePorID"/>
+
+  <xs:element name="buscarCLientePorIDResponse" type="tns:buscarCLientePorIDResponse"/>
+
+  <xs:element name="buscarCLientePorNombre" type="tns:buscarCLientePorNombre"/>
+
+  <xs:element name="buscarCLientePorNombreResponse" type="tns:buscarCLientePorNombreResponse"/>
+
+  <xs:element name="buscarCLienteTelefono" type="tns:buscarCLienteTelefono"/>
+
+  <xs:element name="buscarCLienteTelefonoResponse" type="tns:buscarCLienteTelefonoResponse"/>
+
+  <xs:element name="buscarProductoNombre" type="tns:buscarProductoNombre"/>
+
+  <xs:element name="buscarProductoNombreResponse" type="tns:buscarProductoNombreResponse"/>
+
+  <xs:element name="buscarProductoPorID" type="tns:buscarProductoPorID"/>
+
+  <xs:element name="buscarProductoPorIDResponse" type="tns:buscarProductoPorIDResponse"/>
+
+  <xs:element name="crearCliente" type="tns:crearCliente"/>
+
+  <xs:element name="crearClienteResponse" type="tns:crearClienteResponse"/>
+
+  <xs:element name="crearProducto" type="tns:crearProducto"/>
+
+  <xs:element name="crearProductoResponse" type="tns:crearProductoResponse"/>
+
+  <xs:element name="detalleVenta" type="tns:detalleVenta"/>
+
+  <xs:element name="detalleVentaResponse" type="tns:detalleVentaResponse"/>
+
+  <xs:element name="venta" type="tns:venta"/>
+
+  <xs:element name="ventaResponse" type="tns:ventaResponse"/>
+
+  <xs:complexType name="buscarProductoPorID">
+    <xs:sequence>
+      <xs:element name="codigo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarProductoPorIDResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:producto"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="producto">
+    <xs:complexContent>
+      <xs:extension base="tns:modelo">
+        <xs:sequence>
+          <xs:element name="codigo" type="xs:int"/>
+          <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+          <xs:element minOccurs="0" name="fecha" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="id" type="xs:string"/>
+          <xs:element name="precio" type="xs:int"/>
+          <xs:element minOccurs="0" name="producto" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType abstract="true" name="modelo">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="crearProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="producto" type="xs:string"/>
+      <xs:element name="codigo" type="xs:int"/>
+      <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+      <xs:element name="precio" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="crearProductoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="venta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id_interno_clte" type="xs:string"/>
+      <xs:element minOccurs="0" name="id_venta" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ventaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarCLientePorID">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id_interno_clte" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarCLientePorIDResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:cliente"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="cliente">
+    <xs:complexContent>
+      <xs:extension base="tns:modelo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="id_cliente" type="xs:string"/>
+          <xs:element minOccurs="0" name="id_interno_clte" type="xs:string"/>
+          <xs:element minOccurs="0" name="nombre_cliente" type="xs:string"/>
+          <xs:element minOccurs="0" name="rut" type="xs:string"/>
+          <xs:element minOccurs="0" name="telefono" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="crearCliente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nombre_cliente" type="xs:string"/>
+      <xs:element minOccurs="0" name="rut" type="xs:string"/>
+      <xs:element minOccurs="0" name="telefono" type="xs:string"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="crearClienteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarCLientePorNombre">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nombre_cliente" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarCLientePorNombreResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:cliente"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="detalleVenta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id_venta" type="xs:string"/>
+      <xs:element minOccurs="0" name="codigo_producto" type="xs:string"/>
+      <xs:element name="cantidad" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="detalleVentaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarProductoNombre">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="producto" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarProductoNombreResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:producto"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarCLienteTelefono">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="telefono" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarCLienteTelefonoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:cliente"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="buscarProductoPorIDResponse">
+    <wsdl:part element="tns:buscarProductoPorIDResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarProductoPorID">
+    <wsdl:part element="tns:buscarProductoPorID" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="venta">
+    <wsdl:part element="tns:venta" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarCLientePorID">
+    <wsdl:part element="tns:buscarCLientePorID" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarCLienteTelefonoResponse">
+    <wsdl:part element="tns:buscarCLienteTelefonoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="crearCliente">
+    <wsdl:part element="tns:crearCliente" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="crearProductoResponse">
+    <wsdl:part element="tns:crearProductoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarCLientePorNombre">
+    <wsdl:part element="tns:buscarCLientePorNombre" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarCLientePorNombreResponse">
+    <wsdl:part element="tns:buscarCLientePorNombreResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="detalleVenta">
+    <wsdl:part element="tns:detalleVenta" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ventaResponse">
+    <wsdl:part element="tns:ventaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarProductoNombre">
+    <wsdl:part element="tns:buscarProductoNombre" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarCLienteTelefono">
+    <wsdl:part element="tns:buscarCLienteTelefono" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="crearProducto">
+    <wsdl:part element="tns:crearProducto" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="crearClienteResponse">
+    <wsdl:part element="tns:crearClienteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="detalleVentaResponse">
+    <wsdl:part element="tns:detalleVentaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarProductoNombreResponse">
+    <wsdl:part element="tns:buscarProductoNombreResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarCLientePorIDResponse">
+    <wsdl:part element="tns:buscarCLientePorIDResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Pizzeria">
+    <wsdl:operation name="buscarProductoPorID">
+      <wsdl:input message="tns:buscarProductoPorID" name="buscarProductoPorID">
+    </wsdl:input>
+      <wsdl:output message="tns:buscarProductoPorIDResponse" name="buscarProductoPorIDResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearProducto">
+      <wsdl:input message="tns:crearProducto" name="crearProducto">
+    </wsdl:input>
+      <wsdl:output message="tns:crearProductoResponse" name="crearProductoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="venta">
+      <wsdl:input message="tns:venta" name="venta">
+    </wsdl:input>
+      <wsdl:output message="tns:ventaResponse" name="ventaResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarCLientePorID">
+      <wsdl:input message="tns:buscarCLientePorID" name="buscarCLientePorID">
+    </wsdl:input>
+      <wsdl:output message="tns:buscarCLientePorIDResponse" name="buscarCLientePorIDResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearCliente">
+      <wsdl:input message="tns:crearCliente" name="crearCliente">
+    </wsdl:input>
+      <wsdl:output message="tns:crearClienteResponse" name="crearClienteResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarCLientePorNombre">
+      <wsdl:input message="tns:buscarCLientePorNombre" name="buscarCLientePorNombre">
+    </wsdl:input>
+      <wsdl:output message="tns:buscarCLientePorNombreResponse" name="buscarCLientePorNombreResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="detalleVenta">
+      <wsdl:input message="tns:detalleVenta" name="detalleVenta">
+    </wsdl:input>
+      <wsdl:output message="tns:detalleVentaResponse" name="detalleVentaResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarProductoNombre">
+      <wsdl:input message="tns:buscarProductoNombre" name="buscarProductoNombre">
+    </wsdl:input>
+      <wsdl:output message="tns:buscarProductoNombreResponse" name="buscarProductoNombreResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarCLienteTelefono">
+      <wsdl:input message="tns:buscarCLienteTelefono" name="buscarCLienteTelefono">
+    </wsdl:input>
+      <wsdl:output message="tns:buscarCLienteTelefonoResponse" name="buscarCLienteTelefonoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PizzeriaSoapBinding" type="tns:Pizzeria">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="buscarProductoPorID">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="buscarProductoPorID">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="buscarProductoPorIDResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearProducto">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="crearProducto">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="crearProductoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="venta">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="venta">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ventaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarCLientePorID">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="buscarCLientePorID">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="buscarCLientePorIDResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearCliente">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="crearCliente">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="crearClienteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarCLientePorNombre">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="buscarCLientePorNombre">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="buscarCLientePorNombreResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="detalleVenta">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="detalleVenta">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="detalleVentaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarProductoNombre">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="buscarProductoNombre">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="buscarProductoNombreResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarCLienteTelefono">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="buscarCLienteTelefono">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="buscarCLienteTelefonoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Pizzeria">
+    <wsdl:port binding="tns:PizzeriaSoapBinding" name="PizzeriaPort">
+      <soap:address location="http://localhost:8080/PizzaPlaneta-1.0/Pizzeria"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
