@@ -17,8 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="id_interno_clte" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="id_venta" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="id_interno_clte" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,39 +29,15 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "venta", propOrder = {
-    "idInternoClte",
-    "idVenta"
+    "idVenta",
+    "idInternoClte"
 })
 public class Venta {
 
-    @XmlElement(name = "id_interno_clte")
-    protected String idInternoClte;
     @XmlElement(name = "id_venta")
     protected String idVenta;
-
-    /**
-     * Obtiene el valor de la propiedad idInternoClte.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIdInternoClte() {
-        return idInternoClte;
-    }
-
-    /**
-     * Define el valor de la propiedad idInternoClte.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdInternoClte(String value) {
-        this.idInternoClte = value;
-    }
+    @XmlElement(name = "id_interno_clte")
+    protected String idInternoClte;
 
     /**
      * Obtiene el valor de la propiedad idVenta.
@@ -85,6 +61,30 @@ public class Venta {
      */
     public void setIdVenta(String value) {
         this.idVenta = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad idInternoClte.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdInternoClte() {
+        return idInternoClte;
+    }
+
+    /**
+     * Define el valor de la propiedad idInternoClte.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdInternoClte(String value) {
+        this.idInternoClte = value;
     }
 
 }

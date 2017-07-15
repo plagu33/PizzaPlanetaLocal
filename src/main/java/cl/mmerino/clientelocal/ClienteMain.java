@@ -5,8 +5,17 @@
  */
 package cl.mmerino.clientelocal;
 
+import cl.mmerino.colas.ColaVenta;
+import cl.mmerino.colas.Escritura;
+import cl.mmerino.colas.Lectura;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,119 +23,123 @@ import java.util.Scanner;
  */
 public class ClienteMain {
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws InterruptedException {
+        
         Scanner sn = new Scanner(System.in);
         boolean salir = false;
         int opcion;
         
-        String telefonoCliente = "";
-        String idCliente       = "";
-        
-        String nombre_cliente  = "";
-        String rut             = "";
-        String telefono        = "";
-        String email           = "";
-        
-        boolean datosCliente   = false;
-        
         Pizzeria_Service service = new Pizzeria_Service();
-        Pizzeria port = service.getPizzeriaPort();
-
+        Pizzeria port = service.getPizzeriaPort(); 
+        
+        String idCliente = null;
+       
+        System.out.println("iniciando colas");
+        Lectura.iniciarServicio();
+        
         while (!salir) {
-
-            System.out.println("1. Venta");
-            //System.out.println("2. Opcion 2");
-            System.out.println("0. Salir");
-
+            
+            menu_principal();
+            String telefonoCliente;
+            
             try {
 
                 System.out.println("Selecciona una de las opciones");
                 opcion = sn.nextInt();
 
-                switch (opcion) {
+                switch (opcion) {    
                     case 1:
+                        menu_venta();                        
                         
-                        System.out.println("Has seleccionado la opcion Venta");                        
-                        System.out.println("Ingrese el número telefónico de cliente");                        
-                        
-                        while (telefonoCliente=="") {
-                            
-                            telefonoCliente = sn.next();
-                            
-                            if(telefonoCliente!="") {
-                                
-                                //System.out.println("Ingreso el número "+telefonoCliente);   
-                                
-                                Cliente buscarCLienteTelefono = port.buscarCLienteTelefono(telefonoCliente);
-                                
-                                if( buscarCLienteTelefono==null ) {
-                                    
-                                    System.out.println("El Cliente ingresado no éxiste, ingrese los datos del nuevo cliente");
-                                    
-                                    telefonoCliente = "";
-                                    
-                                    while (!datosCliente) {
-                                        
-                                        System.out.println("Ingrese el nombre del cliente:");
-                                        nombre_cliente = sn.next();
-                                        System.out.println("Ingrese el rut:");
-                                        rut = sn.next();
-                                        System.out.println("Ingrese el teléfono:");
-                                        telefono = sn.next();
-                                        System.out.println("Ingrese el email:");
-                                        email = sn.next();
-                                        
-                                        if(nombre_cliente!="" && rut!="" && telefono!="" && email!="") {
+                        telefonoCliente = sn.next();
 
-                                            idCliente = port.crearCliente(nombre_cliente, rut, telefono, email);
-                                            System.out.println(idCliente);
-                                            datosCliente = true;
+                        Cliente buscarCLienteTelefono = port.buscarCLienteTelefono(telefonoCliente);
 
-                                        }
-                                        
-                                        break;   
-                                        
-                                    }
-                                   
-                                    
-                                    
-                                    
-                                }else{
-                                    idCliente = buscarCLienteTelefono.idCliente;
-                                    System.out.println(idCliente);
-                                    //aqui tengo el id del cliente, para guardarlo en la venta
-                                    
+                        if( buscarCLienteTelefono==null ) {
+                            System.out.println("No existe cliente");
+                        }else{
+                            
+                            idCliente = buscarCLienteTelefono.idCliente;
+                            
+                            System.out.println("Cliente nombre :"+buscarCLienteTelefono.nombreCliente);                            
+                            System.out.println("");
+                            System.out.println("Listado de productos");
+                            
+                            try {
+                                
+                                List<Producto> a = port.listarProductos();
+                                
+                                for( Iterator<Producto> i = a.iterator(); i.hasNext(); ) {
+                                    Producto item = i.next();
+                                    System.out.println(item.codigo+". "+item.producto);
                                 }
                                 
+                                System.out.println("Ingrese el producto");
+                                String nuevoProducto = sn.next();
+                                System.out.println("Ingrese la cantidad");
+                                int nuevaCantidad = sn.nextInt();   
+                                
+                                String id_venta = UUID.randomUUID().toString();
+                                
+                                ColaVenta cv = new ColaVenta();
+                                cv.setIdVenta(id_venta);
+                                cv.setIdCliente(idCliente);
+                                cv.setProducto(nuevoProducto);
+                                cv.setCantidad(nuevaCantidad);                                
+                                
+                                Escritura.enviarMensaje(cv);
+                                
+                                System.out.println("");                                                                                                                                                                                                                                                
+                                
+                            } catch (ClassNotFoundException_Exception ex) {
+                                Logger.getLogger(ClienteMain.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             
-                        }                                                                            
+                            
+                        }
                         
-                        break;
+                    break;
+                    case 2:                        
+
+                        System.out.println("Ingrese el nombre del cliente:");
+                        String nombre_cliente = sn.next();
+                        System.out.println("Ingrese el rut:");
+                        String rut = sn.next();
+                        System.out.println("Ingrese el teléfono:");
+                        String telefono = sn.next();
+                        System.out.println("Ingrese el email:");
+                        String email = sn.next();
+                        
+                        idCliente = port.crearCliente(nombre_cliente, rut, telefono, email);
+                        
+                        System.out.println("Cliente creado con éxito. ("+idCliente+")");
+                        
+                    break;                    
                     case 0:
                         salir = true;
-                        break;
+                    break;
                     default:
-                        System.out.println("Opción no válida");
+                        System.out.println("Opción no válida");                    
                 }
-
+                
             } catch (InputMismatchException e) {
                 System.out.println("Opción no válida");
                 sn.next();
             }
+
+            
         }
 
-        /*        
-
-        Pizzeria_Service service = new Pizzeria_Service();
-        Pizzeria port = service.getPizzeriaPort();
-
-        String result = port.crearProducto("producto prueba 3",99,"aaaa 1",19990);
-        System.out.println("Result = "+result);        
-
-        */
-
+    }    
+    
+    public static void menu_principal() {
+        System.out.println("1. Venta");
+        System.out.println("2. Crear Cliente");
+        System.out.println("0. Salir");          
+    }
+    
+    public static void menu_venta() {
+        System.out.println("Ingrese el número telefónico de cliente");        
     }
 
 }

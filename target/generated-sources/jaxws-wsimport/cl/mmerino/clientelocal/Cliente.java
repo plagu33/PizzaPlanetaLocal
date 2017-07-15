@@ -4,7 +4,9 @@ package cl.mmerino.clientelocal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -18,6 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://ws.pizzaplaneta.cl/}modelo">
  *       &lt;sequence>
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="fecha" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="id_cliente" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="id_interno_clte" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="nombre_cliente" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -34,6 +37,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "cliente", propOrder = {
     "email",
+    "fecha",
     "idCliente",
     "idInternoClte",
     "nombreCliente",
@@ -45,6 +49,8 @@ public class Cliente
 {
 
     protected String email;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar fecha;
     @XmlElement(name = "id_cliente")
     protected String idCliente;
     @XmlElement(name = "id_interno_clte")
@@ -76,6 +82,30 @@ public class Cliente
      */
     public void setEmail(String value) {
         this.email = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad fecha.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getFecha() {
+        return fecha;
+    }
+
+    /**
+     * Define el valor de la propiedad fecha.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setFecha(XMLGregorianCalendar value) {
+        this.fecha = value;
     }
 
     /**

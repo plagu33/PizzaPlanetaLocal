@@ -1,6 +1,7 @@
 
 package cl.mmerino.clientelocal;
 
+import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -72,10 +73,10 @@ public interface Pizzeria {
     @RequestWrapper(localName = "venta", targetNamespace = "http://ws.pizzaplaneta.cl/", className = "cl.mmerino.clientelocal.Venta")
     @ResponseWrapper(localName = "ventaResponse", targetNamespace = "http://ws.pizzaplaneta.cl/", className = "cl.mmerino.clientelocal.VentaResponse")
     public String venta(
-        @WebParam(name = "id_interno_clte", targetNamespace = "")
-        String idInternoClte,
         @WebParam(name = "id_venta", targetNamespace = "")
-        String idVenta);
+        String idVenta,
+        @WebParam(name = "id_interno_clte", targetNamespace = "")
+        String idInternoClte);
 
     /**
      * 
@@ -147,6 +148,20 @@ public interface Pizzeria {
         String codigoProducto,
         @WebParam(name = "cantidad", targetNamespace = "")
         int cantidad);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<cl.mmerino.clientelocal.Producto>
+     * @throws ClassNotFoundException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listarProductos", targetNamespace = "http://ws.pizzaplaneta.cl/", className = "cl.mmerino.clientelocal.ListarProductos")
+    @ResponseWrapper(localName = "listarProductosResponse", targetNamespace = "http://ws.pizzaplaneta.cl/", className = "cl.mmerino.clientelocal.ListarProductosResponse")
+    public List<Producto> listarProductos()
+        throws ClassNotFoundException_Exception
+    ;
 
     /**
      * 

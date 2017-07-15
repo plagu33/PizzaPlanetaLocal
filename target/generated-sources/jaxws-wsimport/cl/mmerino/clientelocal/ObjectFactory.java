@@ -29,6 +29,7 @@ public class ObjectFactory {
     private final static QName _Venta_QNAME = new QName("http://ws.pizzaplaneta.cl/", "venta");
     private final static QName _BuscarCLientePorID_QNAME = new QName("http://ws.pizzaplaneta.cl/", "buscarCLientePorID");
     private final static QName _BuscarCLienteTelefonoResponse_QNAME = new QName("http://ws.pizzaplaneta.cl/", "buscarCLienteTelefonoResponse");
+    private final static QName _ListarProductosResponse_QNAME = new QName("http://ws.pizzaplaneta.cl/", "listarProductosResponse");
     private final static QName _CrearCliente_QNAME = new QName("http://ws.pizzaplaneta.cl/", "crearCliente");
     private final static QName _CrearProductoResponse_QNAME = new QName("http://ws.pizzaplaneta.cl/", "crearProductoResponse");
     private final static QName _BuscarCLientePorNombre_QNAME = new QName("http://ws.pizzaplaneta.cl/", "buscarCLientePorNombre");
@@ -42,6 +43,8 @@ public class ObjectFactory {
     private final static QName _BuscarProductoNombreResponse_QNAME = new QName("http://ws.pizzaplaneta.cl/", "buscarProductoNombreResponse");
     private final static QName _DetalleVentaResponse_QNAME = new QName("http://ws.pizzaplaneta.cl/", "detalleVentaResponse");
     private final static QName _BuscarCLientePorIDResponse_QNAME = new QName("http://ws.pizzaplaneta.cl/", "buscarCLientePorIDResponse");
+    private final static QName _ClassNotFoundException_QNAME = new QName("http://ws.pizzaplaneta.cl/", "ClassNotFoundException");
+    private final static QName _ListarProductos_QNAME = new QName("http://ws.pizzaplaneta.cl/", "listarProductos");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: cl.mmerino.clientelocal
@@ -64,6 +67,14 @@ public class ObjectFactory {
      */
     public BuscarCLienteTelefonoResponse createBuscarCLienteTelefonoResponse() {
         return new BuscarCLienteTelefonoResponse();
+    }
+
+    /**
+     * Create an instance of {@link ListarProductosResponse }
+     * 
+     */
+    public ListarProductosResponse createListarProductosResponse() {
+        return new ListarProductosResponse();
     }
 
     /**
@@ -171,11 +182,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ListarProductos }
+     * 
+     */
+    public ListarProductos createListarProductos() {
+        return new ListarProductos();
+    }
+
+    /**
      * Create an instance of {@link BuscarCLientePorIDResponse }
      * 
      */
     public BuscarCLientePorIDResponse createBuscarCLientePorIDResponse() {
         return new BuscarCLientePorIDResponse();
+    }
+
+    /**
+     * Create an instance of {@link ClassNotFoundException }
+     * 
+     */
+    public ClassNotFoundException createClassNotFoundException() {
+        return new ClassNotFoundException();
     }
 
     /**
@@ -253,6 +280,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.pizzaplaneta.cl/", name = "buscarCLienteTelefonoResponse")
     public JAXBElement<BuscarCLienteTelefonoResponse> createBuscarCLienteTelefonoResponse(BuscarCLienteTelefonoResponse value) {
         return new JAXBElement<BuscarCLienteTelefonoResponse>(_BuscarCLienteTelefonoResponse_QNAME, BuscarCLienteTelefonoResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListarProductosResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.pizzaplaneta.cl/", name = "listarProductosResponse")
+    public JAXBElement<ListarProductosResponse> createListarProductosResponse(ListarProductosResponse value) {
+        return new JAXBElement<ListarProductosResponse>(_ListarProductosResponse_QNAME, ListarProductosResponse.class, null, value);
     }
 
     /**
@@ -370,6 +406,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.pizzaplaneta.cl/", name = "buscarCLientePorIDResponse")
     public JAXBElement<BuscarCLientePorIDResponse> createBuscarCLientePorIDResponse(BuscarCLientePorIDResponse value) {
         return new JAXBElement<BuscarCLientePorIDResponse>(_BuscarCLientePorIDResponse_QNAME, BuscarCLientePorIDResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ClassNotFoundException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.pizzaplaneta.cl/", name = "ClassNotFoundException")
+    public JAXBElement<ClassNotFoundException> createClassNotFoundException(ClassNotFoundException value) {
+        return new JAXBElement<ClassNotFoundException>(_ClassNotFoundException_QNAME, ClassNotFoundException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListarProductos }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.pizzaplaneta.cl/", name = "listarProductos")
+    public JAXBElement<ListarProductos> createListarProductos(ListarProductos value) {
+        return new JAXBElement<ListarProductos>(_ListarProductos_QNAME, ListarProductos.class, null, value);
     }
 
 }
