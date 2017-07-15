@@ -88,7 +88,6 @@ public class Lectura implements Runnable {
 
                     } catch (Exception e) {                        
                         Escritura.enviarMensaje(msje);                                        
-                        //System.out.println(e.getMessage());
                     }   
 
                 }                               

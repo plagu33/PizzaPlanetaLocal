@@ -5,9 +5,12 @@
  */
 package cl.mmerino.clientelocal;
 
+import cl.mmerino.colas.ColaCliente;
 import cl.mmerino.colas.ColaVenta;
 import cl.mmerino.colas.Escritura;
+import cl.mmerino.colas.EscrituraCliente;
 import cl.mmerino.colas.Lectura;
+import cl.mmerino.colas.LecturaCliente;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -34,8 +37,8 @@ public class ClienteMain {
         
         String idCliente = null;
        
-        System.out.println("iniciando colas");
-        Lectura.iniciarServicio();       
+        Lectura.iniciarServicio();
+        LecturaCliente.iniciarServicioCliente();
         
         while (!salir) {
             
@@ -93,11 +96,11 @@ public class ClienteMain {
                                 cv.setIdVenta(id_venta);
                                 cv.setIdCliente(idCliente);
                                 cv.setProducto(nuevoProducto);
-                                cv.setCantidad(nuevaCantidad);                                
+                                cv.setCantidad(nuevaCantidad);
                                 
                                 Escritura.enviarMensaje(cv);
                                 
-                                System.out.println("");                                                                                                                                                                                                                                                
+                                System.out.println("");
                                 
                             } catch (ClassNotFoundException_Exception ex) {
                                 Logger.getLogger(ClienteMain.class.getName()).log(Level.SEVERE, null, ex);
@@ -118,9 +121,13 @@ public class ClienteMain {
                         System.out.println("Ingrese el email:");
                         String email = sn.next();
                         
-                        idCliente = port.crearCliente(nombre_cliente, rut, telefono, email);
+                        ColaCliente cl = new ColaCliente();
+                        cl.setNombre(nombre_cliente);
+                        cl.setRut(rut);
+                        cl.setTelefono(telefono);
+                        cl.setEmail(email);
                         
-                        System.out.println("Cliente creado con éxito. ("+idCliente+")");
+                        EscrituraCliente.enviarMensajeCliente(cl);                        
                         
                     break;                    
                     case 0:
