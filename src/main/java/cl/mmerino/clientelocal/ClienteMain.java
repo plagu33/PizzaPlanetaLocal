@@ -50,12 +50,19 @@ public class ClienteMain {
                 switch (opcion) {    
                     case 1:
                         
-                        System.out.println("Ingrese el número telefónico de cliente");                               
+                        System.out.println("Ingrese el número telefónico de cliente");                                                                               
                         
                         telefonoCliente = sn.next();
-
-                        Cliente buscarCLienteTelefono = port.buscarCLienteTelefono(telefonoCliente);
-
+                        
+                        Cliente buscarCLienteTelefono = null ;
+                        
+                        try {
+                            buscarCLienteTelefono = port.buscarCLienteTelefono(telefonoCliente);    
+                        } catch (Exception e) {
+                            System.out.println("Error intentando conectarse con el ws");                                                                             
+                            break;
+                        }
+                        
                         if( buscarCLienteTelefono==null ) {
                             System.out.println("No existe cliente");
                         }else{

@@ -64,7 +64,7 @@ public class Lectura implements Runnable {
             // Espera hasta recibir un mensaje
             while (servicioActivo) { //mientras el servicio este activo, voy a escuchar por un mensaje
                 
-                Message message = consumer.receive(5000); //voy a esperar 1 segundo (1000 milisegundos) si es que llega un mensaje                                                
+                Message message = consumer.receive(3000); //voy a esperar 1 segundo (1000 milisegundos) si es que llega un mensaje                                                
                 
                 String idVenta   = "";
                 String idCliente = "";
@@ -74,7 +74,6 @@ public class Lectura implements Runnable {
                 if (message instanceof ObjectMessage && message!=null) {
                     
                     ObjectMessage obj = (ObjectMessage) message;
-
                     ColaVenta msje = (ColaVenta) obj.getObject();                                           
 
                     idVenta   = msje.idVenta;
@@ -87,10 +86,9 @@ public class Lectura implements Runnable {
                         port.venta(idVenta,idCliente);
                         port.detalleVenta(idVenta, producto,cantidad);
 
-                    } catch (Exception e) {
-                        //System.out.println("...");
+                    } catch (Exception e) {                        
                         Escritura.enviarMensaje(msje);                                        
-                        //System.out.println(e.getMessage());                    
+                        //System.out.println(e.getMessage());
                     }   
 
                 }                               
