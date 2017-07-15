@@ -64,41 +64,36 @@ public class Lectura implements Runnable {
             // Espera hasta recibir un mensaje
             while (servicioActivo) { //mientras el servicio este activo, voy a escuchar por un mensaje
                 
-                Message message = consumer.receive(5000); //voy a esperar 1 segundo (1000 milisegundos) si es que llega un mensaje                
+                Message message = consumer.receive(5000); //voy a esperar 1 segundo (1000 milisegundos) si es que llega un mensaje                                                
                 
-                try {
+                String idVenta   = "";
+                String idCliente = "";
+                String producto  = "";
+                int cantidad     = -1;
+
+                if (message instanceof ObjectMessage && message!=null) {
                     
                     ObjectMessage obj = (ObjectMessage) message;
+
                     ColaVenta msje = (ColaVenta) obj.getObject();                                           
-                    
-                    String idVenta = msje.idVenta;
-                    String idCliente = msje.idCliente;
-                    String producto = msje.producto;
-                    int cantidad = msje.cantidad;                                    
-                    
-                    port.venta(idVenta,idCliente);
-                    port.detalleVenta(idVenta, producto,cantidad);
-                    
-                } catch (Exception e) {                                   
-                    //Escritura.enviarMensaje(msje);                                        
-                    System.out.println(e.getMessage());                    
-                }                             
+
+                    idVenta   = msje.idVenta;
+                    idCliente = msje.idCliente;
+                    producto  = msje.producto;
+                    cantidad  = msje.cantidad;
                 
-                /*if (message instanceof TextMessage && message!=null) {
-                    TextMessage textMessage = (TextMessage) message;
-                    String text = textMessage.getText();
-                    
-                    if( text!=null ) {
-                        System.out.println("Recibido: " + text);    
-                    }
-                    
-                } else {
-                    if( message!=null ) {
-                    System.out.println("Recibido: " + message);    
-                    }
-                    
-                }
-                */
+                    try {
+
+                        port.venta(idVenta,idCliente);
+                        port.detalleVenta(idVenta, producto,cantidad);
+
+                    } catch (Exception e) {
+                        //System.out.println("...");
+                        Escritura.enviarMensaje(msje);                                        
+                        //System.out.println(e.getMessage());                    
+                    }   
+
+                }                               
                 
             }
             consumer.close();

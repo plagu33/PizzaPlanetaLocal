@@ -35,7 +35,7 @@ public class ClienteMain {
         String idCliente = null;
        
         System.out.println("iniciando colas");
-        Lectura.iniciarServicio();
+        Lectura.iniciarServicio();       
         
         while (!salir) {
             
@@ -49,7 +49,8 @@ public class ClienteMain {
 
                 switch (opcion) {    
                     case 1:
-                        menu_venta();                        
+                        
+                        System.out.println("Ingrese el número telefónico de cliente");                               
                         
                         telefonoCliente = sn.next();
 
@@ -136,10 +137,6 @@ public class ClienteMain {
         System.out.println("1. Venta");
         System.out.println("2. Crear Cliente");
         System.out.println("0. Salir");          
-    }
-    
-    public static void menu_venta() {
-        System.out.println("Ingrese el número telefónico de cliente");        
-    }
+    }    
 
 }
